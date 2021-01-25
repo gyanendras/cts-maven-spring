@@ -7,6 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import com.cts.cts2020.Employee;
 import com.cts.cts2020.dao.EmployeeDAO;
@@ -15,7 +19,11 @@ class EmployeeDAOTest {
 
 	@Test
 	void testGetAllEmployees() {
-		EmployeeDAO empdao = new EmployeeDAO();
+		Resource resource=new ClassPathResource("applicationContext.xml");  
+	    BeanFactory factory=new XmlBeanFactory(resource);  
+	    EmployeeDAO empdao=(EmployeeDAO)factory.getBean("daoOfEmp");  
+		
+		// EmployeeDAO empdao = new EmployeeDAO(); 
 		List<Employee> l = empdao.getAllEmployees();
 		Assertions.assertEquals(116, l.size());
 	}

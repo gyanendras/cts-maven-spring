@@ -7,10 +7,15 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import com.cts.cts2020.Aadhaar;
 import com.cts.cts2020.NoAadharException;
 import com.cts.cts2020.Person;
+import com.cts.cts2020.dao.EmployeeDAO;
 
 public class PersonTest {
 	Person p =null;
@@ -43,6 +48,19 @@ public class PersonTest {
     	assertTrue(true);
     	
     }
+    
+    @Test
+    void testPersonAAdhaarWithSF() throws NoAadharException {
+    	Resource resource=new ClassPathResource("applicationContext.xml");  
+	    BeanFactory factory=new XmlBeanFactory(resource);  
+	    Person p=(Person)factory.getBean("person"); 
+    	assertEquals(23, p.getAadhaar().getAadhaarNum().longValue());
+    	System.out.println(p.introduce()); 	
+    	    	
+    }
+    
+    
+    
     
     @Test
     void testNoAdhaarException()  {

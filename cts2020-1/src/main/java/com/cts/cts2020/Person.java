@@ -1,7 +1,13 @@
 package com.cts.cts2020;
 
 public  class Person extends Human implements Comparable<Person> {
+	 Person() {
+		 super();
+	 }
+	
 	String fName;
+	
+
 	String lName;
 	
 	public String toString() {
@@ -66,6 +72,23 @@ public  class Person extends Human implements Comparable<Person> {
 	// and function name but different parameters.
 	public String getName(String prefix) {
 		return prefix + " " + fName + " " + lName;
+	}
+	
+	
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getlName() {
+		return lName;
+	}
+
+	public void setlName(String lName) {
+		this.lName = lName;
 	}
 	
 	public String introduce() {
