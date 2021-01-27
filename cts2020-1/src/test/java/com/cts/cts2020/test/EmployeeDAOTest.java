@@ -9,10 +9,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cts.cts2020.Employee;
+import com.cts.cts2020.EmployeeMapper;
 import com.cts.cts2020.dao.EmployeeDAO;
 
 class EmployeeDAOTest {
@@ -48,5 +51,22 @@ class EmployeeDAOTest {
 	}
 	
 	// write a test case for getAllDepartments
+	
+	@Test
+	void testJDBCTemplate() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml");
+		JdbcTemplate jdb = (JdbcTemplate) context.getBean("jdbcTemplate");
+		
+		
+		
+		String sql  ="select * from employees";
+		List<Employee> l = jdb.query(
+				   sql, new EmployeeMapper());
+		System.out.println(l.get(0).getName());
+		Assertions.assertEquals(116, l.size());
+	}
+	
 
 }
